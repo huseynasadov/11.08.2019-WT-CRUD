@@ -1,0 +1,21 @@
+﻿@model ProjectCategory
+@{
+    ViewBag.Title = "Kateqoriya Yemiləmə";
+}
+
+<a href="@Url.Action("Index")" class="btn btn-outline-dark float-right">Geri</a>
+<h2 class="text-center mt-4">Kateqoriya Yeniləmə</h2>
+
+<form method="post" action="@Url.Action("Edit","Category")">
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", data_validation = "required length", data_validation_length = "2-50", data_validation_error_msg_length = "Ad 2-50 uzunlugunda ola bilər", data_validation_error_msg = "Ad boş qoyula bilməz" })
+        @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-danger" })
+    </div>
+    <button type="submit" class="btn btn-success">Yenilə</button>
+</form>
+@section scripts{
+    <script>
+                $.validate();
+    </script>
+}

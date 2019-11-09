@@ -1,0 +1,60 @@
+﻿@model HomeIndexVM
+@{
+    ViewBag.Title = "Home Page";
+}
+
+    <div class="row">
+        
+        <div class="col-lg-9">
+            <h2 class="ml-1">Proyektlər</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">
+                            Ad
+                        </th>
+                        <th scope="col">Yaranma tarixi</th>
+                        <th scope="col">Məlumat</th>
+                        <th scope="col">Kateqoriya</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Projects.Count(); i++)
+                    {
+                        var item = Model.Projects[i];
+                        <tr>
+                            <td scope="row">@(i + 1)</td>
+                            <td>@item.Name</td>
+                            <td>@item.PublishDate.ToString("dd MMMM yyyy")</td>
+                            <td>@item.Desc</td>
+                            <td>@item.ProjectCategory.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-3">
+            <h2 class="ml-1">Kateqoriyalar</h2>
+            <table class="table table-bordered table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">
+                            Ad
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.ProjectCategories.Count(); i++)
+                    {
+                        var item = Model.ProjectCategories[i];
+                        <tr>
+                            <td scope="row">@(i + 1)</td>
+                            <td>@item.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

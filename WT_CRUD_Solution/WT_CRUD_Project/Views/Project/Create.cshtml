@@ -1,0 +1,35 @@
+﻿@model HomeCreateVM
+@{
+    ViewBag.Title = "Yeni Proyekt";
+}
+
+<a href="@Url.Action("Index")" class="btn btn-outline-dark float-right">Geri</a>
+<h2 class="text-center mt-4">Yeni Proyekt</h2>
+
+<form method="post" action="@Url.Action("Create","Project")">
+    <div class="form-group">
+        @Html.LabelFor(m => m.Project.Name)
+        @Html.TextBoxFor(m => m.Project.Name, new { @class = "form-control", data_validation = "required length",data_validation_length="2-50",data_validation_error_msg_length="Ad 2-50 uzunlugunda ola bilər",data_validation_error_msg="Ad boş qoyula bilməz"})
+        @Html.ValidationMessageFor(m => m.Project.Name, null, new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Project.PublishDate)
+        @Html.TextBoxFor(m => m.Project.PublishDate, new { @class = "form-control" ,data_validation="required date", data_validation_format="mm/dd/yyyy",data_validation_error_msg="Yaranma vaxtı boş qoyula bilməz",data_validation_error_msg_date="Yaranma vaxtı ay/gün/il formatında olmalıdır"})
+        @Html.ValidationMessageFor(m => m.Project.PublishDate, null, new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Project.ProjectCategoryId)
+        @Html.DropDownListFor(m => m.Project.ProjectCategoryId, new SelectList(Model.Categories, "Id", "Name"), new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Project.Desc)
+        @Html.TextAreaFor(m => m.Project.Desc, new { @class = "form-control", data_validation = "required",data_validation_error_msg="Məlumat yeri boş qoyula bilməz"  })
+        @Html.ValidationMessageFor(m => m.Project.Desc, null, new { @class = "text-danger"})
+    </div>
+    <button type="submit" class="btn btn-success">Əlavə et</button>
+</form>
+@section scripts{
+        <script>
+                $.validate();
+        </script>
+}

@@ -1,0 +1,77 @@
+﻿@model List<ProjectCategory>
+@{
+    ViewBag.Title = "Kateqoriyalar";
+}
+
+
+<div class="row mt-2">
+    <div class="col-lg-7">
+        <h2 class="text-center">Kateqoriyalar</h2>
+        <a href="@Url.Action("Create","Category")" class="btn btn-outline-primary float-right mb-3">Əlavə et</a>
+        @if (Model.Count == 0)
+        {
+            <h4 class="alert alert-danger mx-4 my-5">Hal-hazırda mövcud olan Kateqoriya yoxdur</h4>
+        }
+        else
+        {
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Ad</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        var item = Model[i];
+                        <tr>
+                            <td scope="row">@(i + 1)</td>
+                            <td>@item.Name</td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Category", new { id = item.Id })"><i class="far fa-edit"></i></a>
+                                <a id="categoryDelete" href="@Url.Action("Delete", "Category", new { id = item.Id })"><i class="far fa-trash-alt text-danger"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        </div>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $("#categoryDelete").click(function (event) {
+                var deletinput = this;
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Əminsinizmi ?',
+                    text: "Geri qaytarmaq mümkün olmayacaq",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Bəli, silinsin!',
+                    cancelButtonText: 'Xeyir'
+                }).then((result) => {
+                    if (result.value) {
+
+                        $.ajax({
+                            url: "https://localhost:44320/" + $(deletinput).attr("href"),
+                            success: function () {
+                                location.reload()
+                            }
+                        })
+
+                    }
+                })
+            })
+        })
+    </script>
+}
+
+
+
+
